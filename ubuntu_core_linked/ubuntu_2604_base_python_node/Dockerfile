@@ -20,30 +20,14 @@ RUN apt-get upgrade -y
 
 # Install nodejs
 RUN update-ca-certificates
-# RUN mamba install -y -c conda-forge nodejs=24 &&  mamba clean -afy
-RUN cd /tmp/ ; wget https://nodejs.org/dist/v24.21.0/node-v24.21.0-linux-x64.tar.xz
-RUN cd /tmp/ ; tar -xf node-v24.21.0-linux-x64.tar.xz --directory /usr/local --strip-components 1
+RUN cd /tmp/ ; wget https://nodejs.org/dist/v24.22.2/node-v24.22.2-linux-x64.tar.xz
+RUN cd /tmp/ ; tar -xf node-v24.22.2-linux-x64.tar.xz --directory /usr/local --strip-components 1
 RUN node -v
 RUN npm -v
 RUN npm install -g npm@latest
 RUN npm -v
 RUN cd /tmp ; npm pack brace-expansion@5.0.12 ; tar -xzf brace-expansion-5.0.12.tgz ;  rm -rf /usr/local/lib/node_modules/npm/node_modules/brace-expansion ; cp -a package   /usr/local/lib/node_modules/npm/node_modules/brace-expansion
-RUN cd /tmp; npm pack undici@6.28.1 ;tar -xzf undici-6.28.1.tgz ; rm -rf /usr/local/lib/node_modules/npm/node_modules/undici ; cp -a package   /usr/local/lib/node_modules/npm/node_modules/undici
+RUN cd /tmp; npm pack undici@6.29.1 ;tar -xzf undici-6.29.1.tgz ; rm -rf /usr/local/lib/node_modules/npm/node_modules/undici ; cp -a package   /usr/local/lib/node_modules/npm/node_modules/undici
 RUN cd /tmp ;  npm pack ip-address@latest ;  tar -xzf ip-address-*.tgz ;  rm -rf /usr/local/lib/node_modules/npm/node_modules/ip-address ;  cp -a package   /usr/local/lib/node_modules/npm/node_modules/ip-address
 RUN cd /tmp ;  npm pack postcss-selector-parser@latest ;  tar -xzf postcss-selector-parser-*.tgz ;  rm -rf /usr/local/lib/node_modules/npm/node_modules/postcss-selector-parser ;  cp -a package   /usr/local/lib/node_modules/npm/node_modules/postcss-selector-parser
 RUN cd /tmp ;  npm pack http-cache-semantics@latest ;  tar -xzf http-cache-semantics-*.tgz ;  rm -rf /usr/local/lib/node_modules/npm/node_modules/http-cache-semantics ;  cp -a package   /usr/local/lib/node_modules/npm/node_modules/http-cache-semantics
-# RUN ln -s "$(which node)" "$(dirname "$(which node)")/nodejs"
-
-
-
-# RUN mkdir -p /etc/apt/keyrings && \
-#     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
-#     echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" \
-#     | tee /etc/apt/sources.list.d/nodesource.list && \
-#     apt-get update && \
-#     apt-get install -y nodejs
-
-# Default Scripts
-# RUN wget https://raw.githubusercontent.com/dbca-wa/wagov_utils/main/wagov_utils/bin/default_script_installer.sh -O /tmp/default_script_installer.sh
-# RUN chmod 755 /tmp/default_script_installer.sh
-# RUN /tmp/default_script_installer.sh
