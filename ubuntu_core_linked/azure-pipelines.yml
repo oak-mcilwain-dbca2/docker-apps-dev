@@ -64,6 +64,17 @@ stages:
     #     docker buildx build           --platform linux/amd64,linux/arm64           --file "$(Build.SourcesDirectory)/ubuntu/ubuntu2604_base/Dockerfile"           --tag "ghcr.io/dbca-wa/docker-apps-dev:ubuntu2604_base_latest"           --tag "ghcr.io/dbca-wa/docker-apps-dev:ubuntu2604_base_$(tagDate)"           --push           "$(Build.SourcesDirectory)"
     #   displayName: Build Ubuntu 26.04 Base Image (AMD64 + ARM64)
 
+    - task: Docker@2
+      displayName: Ubuntu 26.04 Base Python + Node 26 Stable
+      inputs:
+        command: buildAndPush
+        dockerfile: '$(Build.SourcesDirectory)/ubuntu_core_linked/ubuntu_2604_base_python_node26_stable/Dockerfile'
+        tags: |
+          ubuntu_2604_base_python_node26_stable
+          ubuntu_2604_base_python_node26_stable_$(tagDate)
+        containerRegistry: DockerGitHub
+        repository: ghcr.io/dbca-wa/docker-apps-dev
+
     - script: |
         docker system prune -af
       displayName: 'Cleanup Docker space'
